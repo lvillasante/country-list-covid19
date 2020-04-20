@@ -1,0 +1,50 @@
+<!DOCTYPE>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="countries.css">
+    <title>Lista de paises COVID19</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h3>Lista de paises con Covid 19 </h3>
+       <ul class="gradient-list" id="list-country"></ul>
+    </div>
+
+    <script type="text/javascript" >
+      
+      fetch("https://restcountries-v1.p.rapidapi.com/all", {
+        "method": "GET",
+        "headers": {
+          'Content-Type': 'application/json',
+          "x-rapidapi-host": "restcountries-v1.p.rapidapi.com",
+          "x-rapidapi-key": "82f020332bmsh7006f3b5838ebcep154c75jsn46cd464685e7"
+        }
+      })
+      
+      .then(response => {
+        console.log(response);
+      })
+      
+      renderData()
+      async function getData() {
+        const response = await fetch('https://restcountries-v1.p.rapidapi.com/all')
+        const data = await response.json()
+        return data
+      }
+
+      async function renderData(){
+        const data = await getData()
+        tbl = document.getElementById("list-country");
+        data.forEach(item => {
+          cell = document.createElement("li");          
+          cell.innerHTML = item.name; 
+          tbl.appendChild(cell);
+        });
+
+      }
+    </script>
+  </body>
+</html>
+
